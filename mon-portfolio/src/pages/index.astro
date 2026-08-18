@@ -1,17 +1,19 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.vue';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Elisa Donet | Développeuse Frontend">
+  
+  <!-- Ton menu de navigation -->
+  <Header client:load />
+  
+  <!-- Le contenu de la page d'accueil -->
+  <main>
+    <section class="max-w-6xl mx-auto px-4 pt-32">
+      <h1 class="text-5xl font-bold">Hello World!</h1>
+      <p class="mt-4 text-xl text-slate-400">Le style fonctionne enfin !</p>
+    </section>
+  </main>
+  
+</Layout>
