@@ -1,19 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.vue';
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.vue'
 ---
 
 <Layout title="Elisa Donet | Développeuse Frontend">
-  
   <!-- Ton menu de navigation -->
   <Header client:load />
-  
+
   <!-- Le contenu de la page d'accueil -->
   <main>
-    <section class="max-w-6xl mx-auto px-4 pt-32">
+    <section class="mx-auto max-w-6xl px-4 pt-32">
       <h1 class="text-5xl font-bold">Hello World!</h1>
       <p class="mt-4 text-xl text-slate-400">Le style fonctionne enfin !</p>
     </section>
   </main>
-  
 </Layout>

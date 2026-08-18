@@ -1,11 +1,11 @@
 ---
-import '../styles/global.css';
+import '../styles/global.css'
 
 interface Props {
-  title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
 <!doctype html>
@@ -18,10 +18,8 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <!-- On met le fond sombre (bg-slate-950) pour tout le site ici -->
-  <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
-    
+  <body class="flex min-h-screen flex-col bg-slate-950 text-slate-200 antialiased">
     <!-- C'est ici que le contenu de index.astro va s'insérer -->
     <slot />
-    
   </body>
 </html>
