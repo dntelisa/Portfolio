@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <!-- On met le fond sombre (bg-slate-950) pour tout le site ici -->
+  <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
+    
+    <!-- C'est ici que le contenu de index.astro va s'insérer -->
+    <slot />
+    
+  </body>
+</html>
