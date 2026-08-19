@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.vue'
 import About from '../layouts/About.astro'
+import Experience from '../components/Experiences.vue'
 ---
 
 <Layout title="Elisa Donet | Développeuse Frontend">
@@ -11,5 +12,6 @@ import About from '../layouts/About.astro'
   <!-- Le contenu de la page d'accueil -->
   <main>
     <About />
+    <Experience client:visible />
   </main>
 </Layout>
