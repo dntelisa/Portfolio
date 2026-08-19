@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.vue'
 import About from '../layouts/About.astro'
 import Experience from '../components/Experiences.vue'
+import Projects from '../components/Projects.vue'
 ---
 
 <Layout title="Elisa Donet | Développeuse Frontend">
@@ -13,5 +14,6 @@ import Experience from '../components/Experiences.vue'
   <main>
     <About />
     <Experience client:visible />
+    <Projects client:visible />
   </main>
 </Layout>
