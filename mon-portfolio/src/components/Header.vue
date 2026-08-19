@@ -4,9 +4,11 @@ import { ref } from 'vue'
 const isMobileMenuOpen = ref(false)
 
 const navLinks = [
+  { name: 'À propos', href: '#about' },
+  { name: 'Expériences', href: '#experiences' },
   { name: 'Projets', href: '#projets' },
   { name: 'Stack technique', href: '#stack' },
-  { name: 'À propos', href: '#about' },
+  { name: 'Hors-ligne', href: '#offline' },
 ]
 </script>
 
