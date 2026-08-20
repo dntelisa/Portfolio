@@ -1,26 +1,56 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// 1. Déclaration de la langue attendue en prop
+defineProps<{
+  lang: 'en' | 'fr'
+}>()
+
 const isMobileMenuOpen = ref(false)
 
-const navLinks = [
-  { name: 'À propos', href: '#about' },
-  { name: 'Expériences', href: '#experiences' },
-  { name: 'Projets', href: '#projets' },
-  { name: 'Stack technique', href: '#stack' },
-  { name: 'Hors-ligne', href: '#offline' },
-]
+// 2. Le dictionnaire bilingue pour la navigation et l'accessibilité
+const content = {
+  en: {
+    navLinks: [
+      { name: 'About', href: '#about' },
+      { name: 'Experiences', href: '#experiences' },
+      { name: 'Projects', href: '#projets' },
+      { name: 'Tech Stack', href: '#stack' },
+      { name: 'Offline', href: '#offline' },
+    ],
+    aria: {
+      github: 'My GitHub profile',
+      linkedin: 'My LinkedIn profile',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+    },
+  },
+  fr: {
+    navLinks: [
+      { name: 'À propos', href: '#about' },
+      { name: 'Expériences', href: '#experiences' },
+      { name: 'Projets', href: '#projets' },
+      { name: 'Stack technique', href: '#stack' },
+      { name: 'Hors-ligne', href: '#offline' },
+    ],
+    aria: {
+      github: 'Mon profil GitHub',
+      linkedin: 'Mon profil LinkedIn',
+      openMenu: 'Ouvrir le menu',
+      closeMenu: 'Fermer le menu',
+    },
+  },
+}
 </script>
 
 <template>
-  <!-- La barre de navigation principale -->
   <header
     class="sticky top-0 z-30 w-full border-b border-slate-800 bg-slate-950/80 text-slate-200 backdrop-blur-md"
   >
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-20 items-center justify-between">
-        <!-- 1. Logo (Aligné à Gauche - Prend 1/3 de l'espace) -->
-        <div class="flex-shrink-0 md:w-1/3">
+        <!-- 1. Logo -->
+        <div class="flex-shrink-0 md:w-1/5">
           <a
             href="/"
             class="text-2xl font-bold tracking-tighter transition-colors duration-300 hover:text-emerald-400"
@@ -29,10 +59,11 @@ const navLinks = [
           </a>
         </div>
 
-        <!-- 2. Navigation Bureau (Centrée au Milieu - Prend 1/3 de l'espace) -->
-        <nav class="hidden w-1/3 justify-center md:flex">
+        <!-- 2. Navigation Bureau -->
+        <nav class="hidden w-3/5 justify-center md:flex">
           <ul class="flex space-x-8">
-            <li v-for="link in navLinks" :key="link.name">
+            <!-- Utilisation du dictionnaire dynamique -->
+            <li v-for="link in content[lang].navLinks" :key="link.name">
               <a
                 :href="link.href"
                 class="text-sm font-medium text-slate-300 transition-colors duration-300 hover:text-emerald-400"
@@ -43,13 +74,13 @@ const navLinks = [
           </ul>
         </nav>
 
-        <!-- 3. Réseaux Sociaux Bureau (Alignés à Droite - Prend 1/3 de l'espace) -->
-        <div class="hidden w-1/3 items-center justify-end space-x-5 md:flex">
+        <!-- 3. Réseaux Sociaux et Langues (Bureau) -->
+        <div class="hidden w-1/5 items-center justify-end space-x-5 md:flex">
           <a
             href="https://github.com/dntelisa"
             target="_blank"
             class="text-slate-400 transition-colors duration-300 hover:text-emerald-400"
-            aria-label="Mon profil GitHub"
+            :aria-label="content[lang].aria.github"
           >
             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -63,7 +94,7 @@ const navLinks = [
             href="https://www.linkedin.com/in/elisa-donet-4a51042a6"
             target="_blank"
             class="text-slate-400 transition-colors duration-300 hover:text-emerald-400"
-            aria-label="Mon profil LinkedIn"
+            :aria-label="content[lang].aria.linkedin"
           >
             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -73,19 +104,39 @@ const navLinks = [
               />
             </svg>
           </a>
-          <div class="flex gap-4 items-center">
-          <a href="/" class="text-slate-400 hover:text-emerald-400 transition-colors">EN</a>
-          <span class="text-slate-600">|</span>
-          <a href="/fr" class="text-slate-400 hover:text-emerald-400 transition-colors">FR</a>
-        </div>
+
+          <!-- Sélecteur de langue avec surbrillance dynamique -->
+          <div class="flex items-center gap-4">
+            <a
+              href="/"
+              class="transition-colors"
+              :class="
+                lang === 'en'
+                  ? 'font-bold text-emerald-400'
+                  : 'text-slate-400 hover:text-emerald-400'
+              "
+              >EN</a
+            >
+            <span class="text-slate-600">|</span>
+            <a
+              href="/fr"
+              class="transition-colors"
+              :class="
+                lang === 'fr'
+                  ? 'font-bold text-emerald-400'
+                  : 'text-slate-400 hover:text-emerald-400'
+              "
+              >FR</a
+            >
+          </div>
         </div>
 
-        <!-- 4. Bouton Menu Hamburger (Mobile uniquement - Remplace les blocs 2 et 3 sur petit écran) -->
+        <!-- 4. Bouton Menu Hamburger (Mobile) -->
         <div class="flex items-center md:hidden">
           <button
             @click="isMobileMenuOpen = true"
             class="p-2 text-slate-300 hover:text-white focus:outline-none"
-            aria-label="Ouvrir le menu"
+            :aria-label="content[lang].aria.openMenu"
           >
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -101,7 +152,7 @@ const navLinks = [
     </div>
   </header>
 
-  <!-- Overlay sombre (Fond flouté) -->
+  <!-- Overlay sombre -->
   <Transition
     enter-active-class="transition-opacity duration-300 ease-out"
     enter-from-class="opacity-0"
@@ -130,12 +181,12 @@ const navLinks = [
       v-show="isMobileMenuOpen"
       class="fixed top-0 right-0 z-50 flex h-full w-64 flex-col border-l border-slate-800 bg-slate-900 shadow-2xl md:hidden"
     >
-      <!-- En-tête du menu latéral avec la croix -->
+      <!-- En-tête menu latéral -->
       <div class="flex h-20 items-center justify-end border-b border-slate-800 px-4">
         <button
           @click="isMobileMenuOpen = false"
           class="p-2 text-slate-300 hover:text-white"
-          aria-label="Fermer le menu"
+          :aria-label="content[lang].aria.closeMenu"
         >
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
@@ -148,9 +199,9 @@ const navLinks = [
         </button>
       </div>
 
-      <!-- Liens de navigation -->
+      <!-- Liens de navigation (Mobile) -->
       <ul class="flex-col space-y-6 px-6 pt-8">
-        <li v-for="link in navLinks" :key="link.name">
+        <li v-for="link in content[lang].navLinks" :key="link.name">
           <a
             :href="link.href"
             @click="isMobileMenuOpen = false"
@@ -161,8 +212,24 @@ const navLinks = [
         </li>
       </ul>
 
-      <!-- Espace flexible pour pousser les icônes en bas si besoin -->
       <div class="flex-grow"></div>
+
+      <!-- Sélecteur de langue (Ajouté pour le mobile) -->
+      <div class="flex justify-center gap-6 py-4">
+        <a
+          href="/"
+          class="text-lg transition-colors"
+          :class="lang === 'en' ? 'font-bold text-emerald-400' : 'text-slate-400'"
+          >EN</a
+        >
+        <span class="text-lg text-slate-600">|</span>
+        <a
+          href="/fr"
+          class="text-lg transition-colors"
+          :class="lang === 'fr' ? 'font-bold text-emerald-400' : 'text-slate-400'"
+          >FR</a
+        >
+      </div>
 
       <!-- Réseaux Sociaux Mobile -->
       <div class="flex justify-center space-x-8 border-t border-slate-800 p-6">

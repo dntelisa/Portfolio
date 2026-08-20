@@ -1,77 +1,151 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-// On utilise une chaîne de caractères pour identifier l'onglet actif
-const activeCategory = ref('Tous')
+// 1. Déclaration de la langue
+const props = defineProps<{
+  lang: 'en' | 'fr'
+}>()
 
-const techCategories = [
-  {
-    title: 'Frontend',
-    skills: [
-      { name: 'Vue 3', icon: 'https://api.iconify.design/logos:vue.svg' },
-      { name: 'Angular', icon: 'https://api.iconify.design/logos:angular-icon.svg' },
-      { name: 'TypeScript', icon: 'https://api.iconify.design/logos:typescript-icon.svg' },
-      { name: 'JavaScript', icon: 'https://api.iconify.design/logos:javascript.svg' },
-      { name: 'Tailwind CSS', icon: 'https://api.iconify.design/logos:tailwindcss-icon.svg' },
-      { name: 'HTML', icon: 'https://api.iconify.design/logos:html-5.svg' },
-      { name: 'CSS', icon: 'https://api.iconify.design/logos:css-3.svg' },
-      { name: 'Storybook', icon: 'https://api.iconify.design/logos:storybook-icon.svg' },
+// 2. Dictionnaire bilingue pour la stack
+const content = {
+  en: {
+    title: 'Tech Stack',
+    allTab: 'All',
+    categories: [
+      {
+        title: 'Frontend',
+        skills: [
+          { name: 'Vue 3', icon: 'https://api.iconify.design/logos:vue.svg' },
+          { name: 'Angular', icon: 'https://api.iconify.design/logos:angular-icon.svg' },
+          { name: 'TypeScript', icon: 'https://api.iconify.design/logos:typescript-icon.svg' },
+          { name: 'JavaScript', icon: 'https://api.iconify.design/logos:javascript.svg' },
+          { name: 'Tailwind CSS', icon: 'https://api.iconify.design/logos:tailwindcss-icon.svg' },
+          { name: 'HTML', icon: 'https://api.iconify.design/logos:html-5.svg' },
+          { name: 'CSS', icon: 'https://api.iconify.design/logos:css-3.svg' },
+          { name: 'Storybook', icon: 'https://api.iconify.design/logos:storybook-icon.svg' },
+        ],
+      },
+      {
+        title: 'Backend',
+        skills: [
+          { name: 'Node.js', icon: 'https://api.iconify.design/logos:nodejs-icon.svg' },
+          { name: 'Java', icon: 'https://api.iconify.design/logos:java.svg' },
+          { name: 'Spring Boot', icon: 'https://api.iconify.design/logos:spring-icon.svg' },
+          { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
+          { name: 'Go', icon: 'https://api.iconify.design/logos:go.svg' },
+          { name: 'REST', icon: 'https://api.iconify.design/carbon:api.svg?color=%23cbd5e1' },
+        ],
+      },
+      {
+        title: 'Data & AI',
+        skills: [
+          { name: 'PostgreSQL', icon: 'https://api.iconify.design/logos:postgresql.svg' },
+          { name: 'MySQL', icon: 'https://api.iconify.design/logos:mysql-icon.svg' },
+          { name: 'MongoDB', icon: 'https://api.iconify.design/logos:mongodb-icon.svg' },
+          { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
+          { name: 'Agent Copilot', icon: 'https://api.iconify.design/logos:github-copilot.svg' },
+          { name: 'MCP Figma', icon: 'https://api.iconify.design/logos:figma.svg' },
+          { name: 'MCP Chrome', icon: 'https://api.iconify.design/logos:chrome.svg' },
+        ],
+      },
+      {
+        title: 'Quality',
+        skills: [
+          { name: 'Docker', icon: 'https://api.iconify.design/logos:docker-icon.svg' },
+          { name: 'Git', icon: 'https://api.iconify.design/logos:git-icon.svg' },
+          { name: 'Bash', icon: 'https://api.iconify.design/logos:bash-icon.svg' },
+          { name: 'Playwright', icon: 'https://api.iconify.design/logos:playwright.svg' },
+          { name: 'Vitest', icon: 'https://api.iconify.design/logos:vitest.svg' },
+        ],
+      },
+      {
+        title: 'Project',
+        skills: [
+          { name: 'Jira', icon: 'https://api.iconify.design/logos:jira.svg' },
+          { name: 'Confluence', icon: 'https://api.iconify.design/logos:confluence.svg' },
+          { name: 'Notion', icon: 'https://api.iconify.design/logos:notion-icon.svg' },
+        ],
+      },
     ],
   },
-  {
-    title: 'Backend',
-    skills: [
-      { name: 'Node.js', icon: 'https://api.iconify.design/logos:nodejs-icon.svg' },
-      { name: 'Java', icon: 'https://api.iconify.design/logos:java.svg' },
-      { name: 'Spring Boot', icon: 'https://api.iconify.design/logos:spring-icon.svg' },
-      { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
-      { name: 'Go', icon: 'https://api.iconify.design/logos:go.svg' },
-      { name: 'REST', icon: 'https://api.iconify.design/carbon:api.svg?color=%23cbd5e1' },
+  fr: {
+    title: 'Stack technique',
+    allTab: 'Tous',
+    categories: [
+      {
+        title: 'Frontend',
+        skills: [
+          { name: 'Vue 3', icon: 'https://api.iconify.design/logos:vue.svg' },
+          { name: 'Angular', icon: 'https://api.iconify.design/logos:angular-icon.svg' },
+          { name: 'TypeScript', icon: 'https://api.iconify.design/logos:typescript-icon.svg' },
+          { name: 'JavaScript', icon: 'https://api.iconify.design/logos:javascript.svg' },
+          { name: 'Tailwind CSS', icon: 'https://api.iconify.design/logos:tailwindcss-icon.svg' },
+          { name: 'HTML', icon: 'https://api.iconify.design/logos:html-5.svg' },
+          { name: 'CSS', icon: 'https://api.iconify.design/logos:css-3.svg' },
+          { name: 'Storybook', icon: 'https://api.iconify.design/logos:storybook-icon.svg' },
+        ],
+      },
+      {
+        title: 'Backend',
+        skills: [
+          { name: 'Node.js', icon: 'https://api.iconify.design/logos:nodejs-icon.svg' },
+          { name: 'Java', icon: 'https://api.iconify.design/logos:java.svg' },
+          { name: 'Spring Boot', icon: 'https://api.iconify.design/logos:spring-icon.svg' },
+          { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
+          { name: 'Go', icon: 'https://api.iconify.design/logos:go.svg' },
+          { name: 'REST', icon: 'https://api.iconify.design/carbon:api.svg?color=%23cbd5e1' },
+        ],
+      },
+      {
+        title: 'Data et IA',
+        skills: [
+          { name: 'PostgreSQL', icon: 'https://api.iconify.design/logos:postgresql.svg' },
+          { name: 'MySQL', icon: 'https://api.iconify.design/logos:mysql-icon.svg' },
+          { name: 'MongoDB', icon: 'https://api.iconify.design/logos:mongodb-icon.svg' },
+          { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
+          { name: 'Agent Copilot', icon: 'https://api.iconify.design/logos:github-copilot.svg' },
+          { name: 'MCP Figma', icon: 'https://api.iconify.design/logos:figma.svg' },
+          { name: 'MCP Chrome', icon: 'https://api.iconify.design/logos:chrome.svg' },
+        ],
+      },
+      {
+        title: 'Qualité',
+        skills: [
+          { name: 'Docker', icon: 'https://api.iconify.design/logos:docker-icon.svg' },
+          { name: 'Git', icon: 'https://api.iconify.design/logos:git-icon.svg' },
+          { name: 'Bash', icon: 'https://api.iconify.design/logos:bash-icon.svg' },
+          { name: 'Playwright', icon: 'https://api.iconify.design/logos:playwright.svg' },
+          { name: 'Vitest', icon: 'https://api.iconify.design/logos:vitest.svg' },
+        ],
+      },
+      {
+        title: 'Projet',
+        skills: [
+          { name: 'Jira', icon: 'https://api.iconify.design/logos:jira.svg' },
+          { name: 'Confluence', icon: 'https://api.iconify.design/logos:confluence.svg' },
+          { name: 'Notion', icon: 'https://api.iconify.design/logos:notion-icon.svg' },
+        ],
+      },
     ],
   },
-  {
-    title: 'Data et IA',
-    skills: [
-      { name: 'PostgreSQL', icon: 'https://api.iconify.design/logos:postgresql.svg' },
-      { name: 'MySQL', icon: 'https://api.iconify.design/logos:mysql-icon.svg' },
-      { name: 'MongoDB', icon: 'https://api.iconify.design/logos:mongodb-icon.svg' },
-      { name: 'Python', icon: 'https://api.iconify.design/logos:python.svg' },
-      { name: 'Agent Copilot', icon: 'https://api.iconify.design/logos:github-copilot.svg' },
-      { name: 'MCP Figma', icon: 'https://api.iconify.design/logos:figma.svg' },
-      { name: 'MCP Chrome', icon: 'https://api.iconify.design/logos:chrome.svg' },
-    ],
-  },
-  {
-    title: 'Qualité',
-    skills: [
-      { name: 'Docker', icon: 'https://api.iconify.design/logos:docker-icon.svg' },
-      { name: 'Git', icon: 'https://api.iconify.design/logos:git-icon.svg' },
-      { name: 'Bash', icon: 'https://api.iconify.design/logos:bash-icon.svg' },
-      { name: 'Playwright', icon: 'https://api.iconify.design/logos:playwright.svg' },
-      { name: 'Vitest', icon: 'https://api.iconify.design/logos:vitest.svg' },
-    ],
-  },
-  {
-    title: 'Projet',
-    skills: [
-      { name: 'Jira', icon: 'https://api.iconify.design/logos:jira.svg' },
-      { name: 'Confluence', icon: 'https://api.iconify.design/logos:confluence.svg' },
-      { name: 'Notion', icon: 'https://api.iconify.design/logos:notion-icon.svg' },
-    ],
-  },
-]
+}
 
-// 1. On crée dynamiquement la liste de tous les onglets (en ajoutant "Tous" au début)
+// 3. On initialise l'onglet actif dynamiquement avec le mot de la bonne langue ("All" ou "Tous")
+const activeCategory = ref(content[props.lang].allTab)
+
+// 4. On crée dynamiquement la liste de tous les onglets
 const allTabs = computed(() => {
-  return ['Tous', ...techCategories.map((category) => category.title)]
+  return [
+    content[props.lang].allTab,
+    ...content[props.lang].categories.map((category) => category.title),
+  ]
 })
 
-// 2. On calcule les compétences à afficher selon l'onglet actif
+// 5. On calcule les compétences à afficher
 const displayedSkills = computed(() => {
-  // Si on est sur l'onglet "Tous", on fusionne tout en retirant les doublons (ex: Python)
-  if (activeCategory.value === 'Tous') {
+  if (activeCategory.value === content[props.lang].allTab) {
     const uniqueSkills = new Map()
-    techCategories.forEach((category) => {
+    content[props.lang].categories.forEach((category) => {
       category.skills.forEach((skill) => {
         if (!uniqueSkills.has(skill.name)) {
           uniqueSkills.set(skill.name, skill)
@@ -81,8 +155,7 @@ const displayedSkills = computed(() => {
     return Array.from(uniqueSkills.values())
   }
 
-  // Sinon, on cherche la catégorie correspondante
-  const category = techCategories.find((c) => c.title === activeCategory.value)
+  const category = content[props.lang].categories.find((c) => c.title === activeCategory.value)
   return category ? category.skills : []
 })
 </script>
@@ -92,12 +165,12 @@ const displayedSkills = computed(() => {
     <!-- En-tête -->
     <div class="mb-12 flex items-center">
       <h2 class="text-3xl font-bold text-slate-200">
-        <span class="mr-2 font-mono text-emerald-400">/</span>Stack technique
+        <span class="mr-2 font-mono text-emerald-400">/</span>{{ content[lang].title }}
       </h2>
       <div class="ml-6 h-[1px] max-w-xs flex-grow bg-slate-800"></div>
     </div>
 
-    <!-- Navigation : Les bulles (Onglets dynamiques) -->
+    <!-- Navigation : Les bulles -->
     <div class="mb-12 flex flex-wrap justify-center gap-3">
       <button
         v-for="tab in allTabs"

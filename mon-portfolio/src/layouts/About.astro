@@ -1,26 +1,48 @@
+---
+interface Props {
+  lang?: 'en' | 'fr'
+}
+
+const { lang = 'en' } = Astro.props
+
+const content = {
+  en: {
+    greeting: "Hi! I'm",
+    name: 'Elisa',
+    p1: 'ESIR engineering graduate, I love solving all kinds of problems. On a daily basis, I participate in the development of web interfaces with an interest in user experience. I have also worked with data and backend applications. I love managing projects, taking initiatives, and moving ideas forward!',
+    p2: "The rest of the time, I'm always up for discovering new things. I create, read, cook, work out, or go on adventures.",
+    btnProjects: 'View my projects',
+    btnGithub: 'My GitHub',
+    altPhoto: 'Portrait of Elisa',
+  },
+  fr: {
+    greeting: "Salut ! Je m'appelle",
+    name: 'Elisa',
+    p1: "Ingénieure diplômée de l'ESIR, j'adore résoudre des problèmes en tout genre. Au quotidien, je participe à l'élaboration d'interfaces web avec une sensibilité pour l'expérience utilisateur. J'ai aussi pu toucher à la data et au backend des applications. J'adore gérer des projets, prendre des initiatives et faire avancer les idées !",
+    p2: "Le reste du temps, je suis toujours partante pour découvrir de nouvelles choses. Je crée, je lis, je cuisine, je fais du sport ou je pars à l'aventure.",
+    btnProjects: 'Voir mes projets',
+    btnGithub: 'Mon GitHub',
+    altPhoto: 'Portrait de Elisa',
+  },
+}
+---
+
 <section
   id="about"
   class="mx-auto flex max-w-6xl flex-col items-center gap-12 px-4 py-12 sm:py-24 md:flex-row lg:gap-20"
 >
   <!-- 1. Colonne de Texte (Gauche) -->
   <div class="flex-1 space-y-6">
-    <!-- Le "Salut" mis en évidence avec ton prénom en vert -->
+    <!-- Le "Salut" mis en évidence avec prénom en vert -->
     <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
-      Salut ! Je m'appelle <span class="text-emerald-400">Elisa</span>.
+      {content[lang].greeting}
+      <span class="text-emerald-400">{content[lang].name}</span>.
     </h1>
 
-    <!-- Le corps du texte aéré avec une belle hauteur de ligne (leading-relaxed) -->
+    <!-- Le corps du texte aéré -->
     <div class="space-y-4 text-lg leading-relaxed text-slate-300 sm:text-xl">
-      <p>
-        Ingénieure diplômée de l'ESIR, j'adore résoudre des problèmes en tout genre. Au quotidien,
-        je participe à l'élaboration d'interfaces web avec une sensibilité pour l'expérience
-        utilisateur. J'ai aussi pu toucher à la data et au backend des applications.
-        J'adore gérer des projets, prendre des initiatives et faire avancer les idées !
-      </p>
-      <p>
-        Le reste du temps, je suis toujours partante pour découvrir de nouvelles choses. 
-        Je crée, je lis, je cuisine, je fais du sport ou je pars à l'aventure.
-      </p>
+      <p>{content[lang].p1}</p>
+      <p>{content[lang].p2}</p>
     </div>
 
     <!-- Boutons d'action -->
@@ -29,15 +51,15 @@
         href="#projets"
         class="rounded-lg bg-emerald-500 px-6 py-3 font-semibold text-slate-950 shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-colors hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)]"
       >
-        Voir mes projets
+        {content[lang].btnProjects}
       </a>
-      <!-- Le lien pointe directement vers ton GitHub configuré précédemment -->
+
       <a
         href="https://github.com/dntelisa"
         target="_blank"
         class="rounded-lg border border-slate-700 bg-slate-800 px-6 py-3 font-semibold text-white transition-colors hover:border-slate-600 hover:bg-slate-700"
       >
-        Mon GitHub
+        {content[lang].btnGithub}
       </a>
     </div>
   </div>
@@ -48,16 +70,13 @@
       <!-- Effet de lueur en arrière-plan (glow) -->
       <div class="absolute inset-0 rounded-full bg-emerald-500 opacity-20 blur-[80px]"></div>
 
-      <!-- Cadre pour ta photo (avec une légère rotation qui se redresse au survol) -->
+      <!-- Cadre pour la photo -->
       <div
         class="relative flex h-full w-full rotate-3 items-center justify-center overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:rotate-0"
       >
-        <!-- Texte provisoire -->
-        <span class="text-sm font-medium text-slate-500"></span>
-
         <img
           src="/photo-portfolio.jpeg"
-          alt="Portrait de Elisa"
+          alt={content[lang].altPhoto}
           class="h-full w-full object-cover opacity-90"
         />
       </div>

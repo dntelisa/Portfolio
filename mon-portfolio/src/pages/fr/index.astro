@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.vue'
+import About from '../../layouts/About.astro'
+import Experience from '../../components/Experiences.vue'
+import Projects from '../../components/Projects.vue'
+import TechStack from '../../components/TechStack.vue'
+import Offline from '../../layouts/Offline.astro'
+---
+
+<Layout title="Elisa Donet | Développeuse Frontend">
+  <!-- Ton menu de navigation -->
+  <Header client:load lang="fr" />
+
+  <!-- Le contenu de la page d'accueil -->
+  <main>
+    <About lang="fr" />
+    <Experience client:visible lang="fr" />
+    <Projects client:visible lang="fr" />
+    <TechStack client:visible lang="fr" />
+    <Offline lang="fr" />
+  </main>
+</Layout>
