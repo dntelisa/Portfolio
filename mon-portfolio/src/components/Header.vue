@@ -60,7 +60,7 @@ const navLinks = [
             </svg>
           </a>
           <a
-            href="https://www.linkedin.com/in/elisa-donet"
+            href="https://www.linkedin.com/in/elisa-donet-4a51042a6"
             target="_blank"
             class="text-slate-400 transition-colors duration-300 hover:text-emerald-400"
             aria-label="Mon profil LinkedIn"
