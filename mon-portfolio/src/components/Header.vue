@@ -73,6 +73,11 @@ const navLinks = [
               />
             </svg>
           </a>
+          <div class="flex gap-4 items-center">
+          <a href="/" class="text-slate-400 hover:text-emerald-400 transition-colors">EN</a>
+          <span class="text-slate-600">|</span>
+          <a href="/fr" class="text-slate-400 hover:text-emerald-400 transition-colors">FR</a>
+        </div>
         </div>
 
         <!-- 4. Bouton Menu Hamburger (Mobile uniquement - Remplace les blocs 2 et 3 sur petit écran) -->
